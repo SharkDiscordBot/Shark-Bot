@@ -1,0 +1,48 @@
+{
+  "name": "shark-bot",
+  "version": "0.0.1",
+  "description": "しゃーくBot",
+  "main": "dist/src/app.js",
+  "scripts": {
+    "dev": "eslint src && ts-node src/app",
+    "start": "npm run check && npm run build && npm run update_license && npm run run_startup_utils && npm run compile_file_run",
+    "check": "eslint src",
+    "build": "tsc",
+    "run_startup_utils": "node bootup-utils/remove_dist_config",
+    "compile_file_run": "node dist/src/app",
+    "update_license": "license-checker --production --direct --customPath ./license-format.json --json --out ./licenses.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SharkDiscordBot/Shark-Bot.git"
+  },
+  "author": "purapetino",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SharkDiscordBot/Shark-Bot/issues"
+  },
+  "homepage": "https://github.com/SharkDiscordBot/Shark-Bot#readme",
+  "_moduleAliases": {
+    "@": "dist/src",
+    "@configs": "configs",
+    "@root": "./"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.14",
+    "@types/node": "^18.11.10",
+    "body-parser": "^1.20.1",
+    "discord.js": "^14.7.0",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "log4js": "^6.7.1",
+    "module-alias": "^2.2.2",
+    "os": "^0.1.2",
+    "path": "^0.12.7",
+    "request": "^2.88.2",
+    "tsconfig-paths": "^4.1.1",
+    "typescript": "^4.9.3"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.45.0"
+  }
+}

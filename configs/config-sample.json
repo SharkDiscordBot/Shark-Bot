@@ -1,0 +1,14 @@
+{
+  "_comment": "See: confg.md",
+  "api_server": {
+    "port": 8080
+  },
+  "settings": {
+    "debug_mode": true,
+    "debug_logger": true
+  },
+  "maintenance_mode": {
+    "enable": false,
+    "res_status": 503
+  }
+}
