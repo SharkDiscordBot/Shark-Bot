@@ -6,6 +6,9 @@ declare module "@configs/config.json" {
       settings: {
         debug_mode: boolean;
         debug_logger: boolean;
+        api: {
+          Shark_api_address: string;
+        }
       },
       maintenance_mode: {
         enable: boolean,

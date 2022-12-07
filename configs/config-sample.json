@@ -5,7 +5,10 @@
   },
   "settings": {
     "debug_mode": true,
-    "debug_logger": true
+    "debug_logger": true,
+    "api": {
+      "Shark_api_address": "https://dev-api.purapetino.com"
+    }
   },
   "maintenance_mode": {
     "enable": false,
