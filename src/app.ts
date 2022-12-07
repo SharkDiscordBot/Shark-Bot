@@ -7,7 +7,9 @@ import api_v1 from "@/routes/v1Router";
 import * as config from "@configs/config.json";
 import * as Error from "@/utils/ErrorUtils";
 import { Logger } from "./modules/Logger";
-//import { Logger } from "./modules/Logger";
+import helmet from "helmet";
+import * as fs from "fs";
+import * as https from "https";
 
 /* 
   express settings
@@ -24,6 +26,9 @@ app.use(log4js.connectLogger(app_logger, {level: "auto"}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// HTTPヘッダー
+app.use(helmet());
+
 // routing
 app.use("/v1", api_v1);
 
@@ -32,7 +37,19 @@ app.use(function(req, res) {
 });
 // end
 
-app.listen(config.api_server.port);
-Logger.SystemInfo("APIサーバーを起動しました");
+app.listen(config.web_server.port);
+Logger.SystemInfo("Webサーバーを起動しました");
+
+// HTTPSサーバーを起動
+if(config.web_server.ssl.enable == true) {
+  const ssl_options = {
+    key: fs.readFileSync(config.web_server.ssl.key_path),
+    cert: fs.readFileSync(config.web_server.ssl.cert_path)
+  };
+  const SSLServer = https.createServer(ssl_options, app);
+  SSLServer.listen(config.web_server.ssl.ssl_port, () => {
+    Logger.SystemInfo("SSLサーバーが起動しました");
+  });
+}
 
 export default app;

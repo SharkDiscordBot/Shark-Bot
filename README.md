@@ -28,6 +28,11 @@
 - MacOS
 - WSL2 (Ubuntu)
 
+## SSL(TLS)について
+
+本APIサーバー運用時には暗号化通信を行うことを推奨します。 <br>
+証明書はInit-SSL.shを実行することでcertkeysディレクトリに作成されます(Init-SSL.shを使用し証明書を作成される場合、ポート番号及び有効化切り替え以外のSSL設定は変更不要です)
+
 ## Licence
 
 [MIT Licence](./LICENCE)

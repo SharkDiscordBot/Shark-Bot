@@ -1,7 +1,13 @@
 declare module "@configs/config.json" {
   type JSONType = {
-      api_server: {
+      web_server: {
         port: number;
+        ssl: {
+          enable: boolean;
+          key_path: string;
+          cert_path: string;
+          ssl_port: number;
+        }
       },
       settings: {
         debug_mode: boolean;

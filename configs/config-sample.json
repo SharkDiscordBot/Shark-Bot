@@ -1,7 +1,13 @@
 {
   "_comment": "See: confg.md",
-  "api_server": {
-    "port": 8080
+  "web_server": {
+    "port": 8080,
+    "ssl": {
+      "enable": true,
+      "key_path": "certkeys/cert_server.key",
+      "cert_path": "certkeys/cert_server.crt",
+      "ssl_port": 7070
+    }
   },
   "settings": {
     "debug_mode": true,
