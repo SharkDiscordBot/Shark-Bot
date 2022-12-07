@@ -9,6 +9,6 @@ router.get("/", (req, res)  => {
 
 router.get("/status", (req, res) => {
   status(req, res);
-})
+});
 
 export default router;
