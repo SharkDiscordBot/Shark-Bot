@@ -36,7 +36,7 @@ export class Request {
     return await return_data;
   }
 
-  public static async post(shark_api_path: string, post_data?: any): Promise<string> {
+  public static async post(shark_api_path: string, post_data?: object): Promise<string> {
     
     const url = config.settings.api.Shark_api_address + shark_api_path;
     let data;
@@ -80,7 +80,7 @@ export class Request {
     return await return_data;
   }
 
-  public static async put(shark_api_path: string, put_data?: any): Promise<string> {
+  public static async put(shark_api_path: string, put_data?: object): Promise<string> {
     
     const url = config.settings.api.Shark_api_address + shark_api_path;
     let data;
@@ -124,7 +124,7 @@ export class Request {
     return await return_data;
   }
 
-  public static async delete(shark_api_path: string, delete_data?: any): Promise<string> {
+  public static async delete(shark_api_path: string, delete_data?: object): Promise<string> {
     
     const url = config.settings.api.Shark_api_address + shark_api_path;
     let data;

@@ -10,6 +10,7 @@ import { Logger } from "./modules/Logger";
 import helmet from "helmet";
 import * as fs from "fs";
 import * as https from "https";
+import { Request } from "./modules/RequestAPI";
 
 /* 
   express settings
