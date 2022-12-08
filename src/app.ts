@@ -10,6 +10,10 @@ import { Logger } from "./modules/Logger";
 import helmet from "helmet";
 import * as fs from "fs";
 import * as https from "https";
+import { Request } from "./modules/RequestAPI";
+import * as api_systems_model from "@/@types_shark_api/systems";
+import * as system_version from "@root/system.json";
+import { main_commands } from "./utils/SystemCommandUtils";
 
 /* 
   express settings
@@ -52,4 +56,34 @@ if(config.web_server.ssl.enable == true) {
   });
 }
 
+// 起動成功メッセージ兼API疎通確認
+
+async function hello_msg() {
+  
+  let data:api_systems_model.info = await Request.get("/v1/systems/info");
+  data = JSON.parse(JSON.stringify(data));
+  
+  if(data.http_status != 200) {
+    Logger.SystemError("APIサーバーとの通信に失敗しました");
+    Logger.SystemError("configのAPIサーバーに誤りはないか、APIサーバーが起動しているか確認してください");
+    Logger.Debug(data.message);
+    process.exit(1);
+  } else {
+    Logger.SystemInfo("APIサーバーとの通信に成功しました");
+  }
+
+  Logger.SystemInfo("==============================");
+  Logger.SystemInfo("SharkBot https://github.com/SharkDiscordBot/Shark-Bot ");
+  Logger.SystemInfo("");
+  if(system_version.beta == true) {
+    Logger.SystemInfo("現在使用中のバージョンは ベータ版 です。");
+  }
+  Logger.SystemInfo("SharkBotバージョン: " + system_version.version);
+  Logger.SystemInfo("SharkBot hash: " + main_commands.git("show --format='%H' --no-patch"));
+  Logger.SystemInfo("SharkAPIバージョン: " + data.version);
+  Logger.SystemInfo("SharkAPI hash: " + data.hash);
+  Logger.SystemInfo("==============================");
+}
+
+hello_msg();
 export default app;
