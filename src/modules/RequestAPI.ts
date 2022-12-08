@@ -1,14 +1,19 @@
 import { Logger } from "@/modules/Logger";
 import axios from "axios";
 import * as config from "@configs/config.json";
+import * as system_version from "@root/system.json";
 
 export class Request {
 
-  public static async get(api_path: string): Promise<string> {
+  public static async get(shark_api_path: string) {
     
-    const url = config.settings.api.Shark_api_address + api_path;
+    const url = config.settings.api.Shark_api_address + shark_api_path;
     let data;
-    await axios.get(url)
+    await axios.get(url, {
+      headers: {
+        "User-Agent": "SharkBot/" + system_version.version
+      }
+    })
     .then((res) => {
       data = res;
     })
@@ -36,12 +41,16 @@ export class Request {
     return await return_data;
   }
 
-  public static async post(shark_api_path: string, post_data?: object): Promise<string> {
+  public static async post(shark_api_path: string, post_data?: object) {
     
     const url = config.settings.api.Shark_api_address + shark_api_path;
     let data;
     if(post_data){
-      await axios.post(url, post_data)
+      await axios.post(url, post_data, {
+        headers: {
+          "User-Agent": "SharkBot/" + system_version.version
+        }
+      })
       .then((res) => {
         data = res;
       })
@@ -80,12 +89,16 @@ export class Request {
     return await return_data;
   }
 
-  public static async put(shark_api_path: string, put_data?: object): Promise<string> {
+  public static async put(shark_api_path: string, put_data?: object) {
     
     const url = config.settings.api.Shark_api_address + shark_api_path;
     let data;
     if(put_data){
-      await axios.post(url, put_data)
+      await axios.post(url, put_data, {
+        headers: {
+          "User-Agent": "SharkBot/" + system_version.version
+        }
+      })
       .then((res) => {
         data = res;
       })
@@ -124,12 +137,16 @@ export class Request {
     return await return_data;
   }
 
-  public static async delete(shark_api_path: string, delete_data?: object): Promise<string> {
+  public static async delete(shark_api_path: string, delete_data?: object) {
     
     const url = config.settings.api.Shark_api_address + shark_api_path;
     let data;
     if(delete_data){
-      await axios.post(url, delete_data)
+      await axios.post(url, delete_data, {
+        headers: {
+          "User-Agent": "SharkBot/" + system_version.version
+        }
+      })
       .then((res) => {
         data = res;
       })
