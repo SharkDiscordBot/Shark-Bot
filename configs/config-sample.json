@@ -13,7 +13,9 @@
     "debug_mode": true,
     "debug_logger": true,
     "api": {
-      "Shark_api_address": "https://dev-api.purapetino.com"
+      "Shark_api_address": "https://dev-api.purapetino.com",
+      "api_key": "shark_api_key",
+      "api_id": "shark_api_id"
     }
   },
   "maintenance_mode": {

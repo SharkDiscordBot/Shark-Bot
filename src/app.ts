@@ -14,10 +14,27 @@ import { Request } from "./modules/RequestAPI";
 import * as api_systems_model from "@/@types_shark_api/systems";
 import * as system_version from "@root/system.json";
 import { main_commands } from "./utils/SystemCommandUtils";
+import * as cron from "node-cron";
+import * as Keyv from "keyv";
+import check_token from "@/cron-tasks/check-token";
+import { ConfigUtils } from "./sub-system/Config-Utils";
+
+/* 
+  System Check
+*/
+ConfigUtils.check_config();
+
+/*
+  Keyv Init
+*/
+export const keyv = new Keyv();
+keyv.on("error", (err) => {
+  Logger.SystemError("起動処理中にエラーが発生しました: Keyvの起動に失敗しました");
+  Logger.SystemError("" + err);
+});
 
 /* 
   express settings
-  statusの返却のみに使用します
 */
 
 const app = express();
@@ -60,7 +77,7 @@ if(config.web_server.ssl.enable == true) {
 
 async function hello_msg() {
   
-  let data:api_systems_model.info = await Request.get("/v1/systems/info");
+  let data:api_systems_model.info = await Request.no_auth_get("/v1/systems/info");
   data = JSON.parse(JSON.stringify(data));
   
   if(data.http_status != 200) {
@@ -86,4 +103,16 @@ async function hello_msg() {
 }
 
 hello_msg();
+
+// 初回取得
+check_token(keyv);
+
+// cron
+
+// 0,20,40秒に実行
+
+cron.schedule("0,20,40 * * * * *", () => {
+  check_token(keyv);
+});
+
 export default app;
