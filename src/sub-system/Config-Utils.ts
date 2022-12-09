@@ -8,5 +8,9 @@ export class ConfigUtils {
       process.exit(1);
     }
     
+    if(config.settings.api.Shark_api_address.endsWith("/")){
+      Logger.SystemError("Shark_api_addressには最後のスラッシュを含めないでください");
+      process.exit(1);
+    }
   }
 }
